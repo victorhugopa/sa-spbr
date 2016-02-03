@@ -1,0 +1,84 @@
+# sa-spbr.cf v.2016020300
+#
+# Lista de regras para o SpamAssassin iniciada por Victor Hugo Assunção para uso na realidade do e-mail
+# corporativo (ifpb.edu.br) e compartilhada na lista Zimbra-BR (zimbra-br@googlegroups.com).
+#
+# Regras baseadas em mensagens indesejadas no e-mail corporativo recebidas entre 2015-2016.
+# Mensagens com pontuação >=6 enviadas para a pasta SPAM para aprendizagem pelo AntiSPAM do Zimbra.
+# OBS: Phishings marcados com +10 devido a mensagens originárias de contas invadidas de outras instituições
+# com servidores bem configurados normalmente receberem pontuação baixa.
+#
+# Use a seu próprio risco :)
+#
+# Última versão em: 
+#  - https://github.com/victorhugopa/sa-spbr/
+
+# E-mails/Propagandas de empresas cadastradas no serviço de whitelist ReturnPath Certified/Safe.
+# Alteração de -5 para 0:
+score RCVD_IN_RP_CERTIFIED 0.0
+# Alteração de -3 para 0:
+score RCVD_IN_RP_SAFE 0.0
+
+describe SPBR_PHISHING1       Pontua +10 para emails com pedido de validação da conta de e-mail e links para formulários web.
+describe SPBR_PHISHING2       Pontua +10 para emails com pedido de validação de usuário e senha de e-mails institucionais.
+describe SPBR_PHISHING3       Pontua +10 para emails com frases/características normalmente utilizadas em phishings para captura de dados de email.
+describe SPBR_HEADER_PHPMAIL  Pontua +4 para uso de script PHP para envio de e-mail. Muitas vezes com origem servidores web invadidos.
+describe SPBR_LISTAS_REMOCAO  Pontua +6 para emails contendo texto/link de remoção de listas normalmente não solicitadas.
+describe SPBR_HEADER_UNSUB    Pontua +1 para emails com List-Unsubscribe no cabeçalho. Somente +1 pois consta também em grupos de discussão assinados pelos usuários.
+describe SPBR_EMPRESTIMO      Pontua +5 para emails contendo palavras relacionadas à serviço de empréstimo consignado.
+describe SPBR_OFERTAS         Pontua +4 para emails que contenham palavras relacionadas à ofertas.
+
+body __SPBR_PHISHING1_0     /(atualizar?|manutenção|reparar?|validar?|verificação|verificar?)/i
+body __SPBR_PHISHING1_1     /(caixa|correio|conta|e-?mail|webmail)/i
+body __SPBR_PHISHING1_2     /(formlogix.com|yolasite.com|webs.com|weebly.com|formsite.com|mailjol.net|tripod.com)/i
+rawbody __SPBR_PHISHING1_3  /(formlogix.com|yolasite.com|webs.com|weebly.com|formsite.com|mailjol.net|tripod.com)/i
+meta SPBR_PHISHING1         (__SPBR_PHISHING1_0 + __SPBR_PHISHING1_1 + __SPBR_PHISHING1_2 + __SPBR_PHISHING1_3) > 2
+score SPBR_PHISHING1        10
+
+body __SPBR_PHISHING2_0     /(atualizar?|manutenção|reparar?|validar?|verificação|verificar?)/i
+body __SPBR_PHISHING2_1     /(excluir|excluída|excluído)/i
+body __SPBR_PHISHING2_2     /(caixa|conta|correio|e-?mail|webmail)/i
+body __SPBR_PHISHING2_3     /(login|usuario|usuário)/i
+body __SPBR_PHISHING2_4     /(password|senha)/i
+meta SPBR_PHISHING2         (__SPBR_PHISHING2_0 + __SPBR_PHISHING2_1 + __SPBR_PHISHING2_2 + __SPBR_PHISHING2_3 + __SPBR_PHISHING2_4) > 2
+score SPBR_PHISHING2        10
+
+body __SPBR_PHISHING3_0     /Webmail Upgrade Team/i
+body __SPBR_PHISHING3_1     /(suporte|administrador).*.mail/i
+header __SPBR_PHISHING3_2   From =~ /WebMail Gerenciador/i
+header __SPBR_PHISHING3_3   From =~ /(atualização|administração).*.(e-?mail|webmail)/i
+header __SPBR_PHISHING3_4   Subject =~ /notificação de cobrança/i
+header __SPBR_PHISHING3_5   Subject =~ /autentica.*.(e-?mail|webmail)/i
+meta SPBR_PHISHING3         (__SPBR_PHISHING3_0 || __SPBR_PHISHING3_1 || __SPBR_PHISHING3_2 || __SPBR_PHISHING3_3 || __SPBR_PHISHING3_4 || __SPBR_PHISHING3_5)
+score SPBR_PHISHING3        10
+
+header __SPBR_HEADER_PHPMAIL_0  exists:X-PHP-Script
+header __SPBR_HEADER_PHPMAIL_1  exists:X-PHP-Originating-Script
+header __SPBR_HEADER_PHPMAIL_2  X-Mailer =~ /phpmailer/i
+meta SPBR_HEADER_PHPMAIL        (__SPBR_HEADER_PHPMAIL_0 || __SPBR_HEADER_PHPMAIL_1 || __SPBR_HEADER_PHPMAIL_2)
+score SPBR_HEADER_PHPMAIL       4
+
+body __SPBR_LISTAS_REMOCAO_0    /clique aqui para ser removido/i
+body __SPBR_LISTAS_REMOCAO_1    /deixar de receber (novidades|nossos|nossas|estes e-?mails)/i
+body __SPBR_LISTAS_REMOCAO_2    /não desejo.*.receber.*.(mensagens|e-?mails?|newsletter)/i
+body __SPBR_LISTAS_REMOCAO_3    /deseja.*.receber.*.(mensagens|e-?mails?|newsletters?)/i
+body __SPBR_LISTAS_REMOCAO_4    /(deseje|deseja|quer|queira) mais receber (nossas?|nossos?)/i
+body __SPBR_LISTAS_REMOCAO_5    /cancelar o recebimento d.*. (e-?mails?|newsletter)/i
+rawbody __SPBR_LISTAS_REMOCAO_6 /unsubscribe.(php|aspx?|html?)/i
+meta SPBR_LISTAS_REMOCAO        (__SPBR_LISTAS_REMOCAO_0 || __SPBR_LISTAS_REMOCAO_1 || __SPBR_LISTAS_REMOCAO_2 || __SPBR_LISTAS_REMOCAO_3 || __SPBR_LISTAS_REMOCAO_4 || __SPBR_LISTAS_REMOCAO_5 || __SPBR_LISTAS_REMOCAO_6)
+score SPBR_LISTAS_REMOCAO       6
+
+header SPBR_HEADER_UNSUB    exists:List-Unsubscribe
+score SPBR_HEADER_UNSUB     1
+
+body __SPBR_EMPRESTIMO_0  /empréstimo/i
+body __SPBR_EMPRESTIMO_1  /consignado/i
+body __SPBR_EMPRESTIMO_2  /(spc|serasa)/i
+meta SPBR_EMPRESTIMO      (__SPBR_EMPRESTIMO_0 && __SPBR_EMPRESTIMO_1 && __SPBR_EMPRESTIMO_2)
+score SPBR_EMPRESTIMO     5
+
+body __SPBR_OFERTAS_0     /ofertas?/i
+body __SPBR_OFERTAS_1     /descontos?/i
+body __SPBR_OFERTAS_2     /promoç(ão|ões)/i
+meta SPBR_OFERTAS         (__SPBR_OFERTAS_0 + __SPBR_OFERTAS_1 + __SPBR_OFERTAS_2) > 1
+score SPBR_OFERTAS        4
