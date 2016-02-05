@@ -63,7 +63,7 @@ body __SPBR_LISTAS_REMOCAO_0    /clique aqui para ser removido/i
 body __SPBR_LISTAS_REMOCAO_1    /deixar de receber (novidades|nossos|nossas|estes e-?mails)/i
 body __SPBR_LISTAS_REMOCAO_2    /(desej.|quer|queira).*.receber.*.(comunicados?|e-?mails?|mensagens|newsletters?)/i
 body __SPBR_LISTAS_REMOCAO_3    /cancelar o recebimento d.*. (comunicados?|e-?mails?|mensagens|newsletters?)/i
-rawbody __SPBR_LISTAS_REMOCAO_4 /unsubscribe.(php|aspx?|html?)?/i
+rawbody __SPBR_LISTAS_REMOCAO_4 /unsubscribe.(php|aspx?|html?)/i
 meta SPBR_LISTAS_REMOCAO        (__SPBR_LISTAS_REMOCAO_0 || __SPBR_LISTAS_REMOCAO_1 || __SPBR_LISTAS_REMOCAO_2 || __SPBR_LISTAS_REMOCAO_3 || __SPBR_LISTAS_REMOCAO_4)
 score SPBR_LISTAS_REMOCAO       6
 
