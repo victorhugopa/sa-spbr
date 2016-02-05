@@ -1,4 +1,4 @@
-# sa-spbr.cf v.2016020400
+# sa-spbr.cf v.2016020500
 #
 # Lista de regras para o SpamAssassin iniciada por Victor Hugo Assunção para uso na realidade do e-mail
 # corporativo (ifpb.edu.br) e compartilhada na lista Zimbra-BR (zimbra-br@googlegroups.com).
@@ -44,7 +44,7 @@ meta SPBR_PHISHING2         (__SPBR_PHISHING2_0 + __SPBR_PHISHING2_1 + __SPBR_PH
 score SPBR_PHISHING2        10
 
 body __SPBR_PHISHING3_0     /Webmail Upgrade Team/i
-body __SPBR_PHISHING3_1     /(suporte|administrador).*.mail/i
+body __SPBR_PHISHING3_1     /^(suporte|administrador).* mail$/i
 header __SPBR_PHISHING3_2   From =~ /WebMail Gerenciador/i
 header __SPBR_PHISHING3_3   From =~ /(atualização|administração).*.(e-?mail|webmail)/i
 header __SPBR_PHISHING3_4   Subject =~ /notificação de cobrança/i
