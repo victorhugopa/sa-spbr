@@ -40,7 +40,7 @@ body __SPBR_PHISHING2_1     /(excluir|excluída|excluído)/i
 body __SPBR_PHISHING2_2     /(caixa|conta|correio|e-?mail|webmail)/i
 body __SPBR_PHISHING2_3     /(login|usuario|usuário)/i
 body __SPBR_PHISHING2_4     /(password|senha)/i
-meta SPBR_PHISHING2         (__SPBR_PHISHING2_0 + __SPBR_PHISHING2_1 + __SPBR_PHISHING2_2 + __SPBR_PHISHING2_3 + __SPBR_PHISHING2_4) > 2
+meta SPBR_PHISHING2         (__SPBR_PHISHING2_0 + __SPBR_PHISHING2_1 + __SPBR_PHISHING2_2 + __SPBR_PHISHING2_3 + __SPBR_PHISHING2_4) > 3
 score SPBR_PHISHING2        10
 
 body __SPBR_PHISHING3_0     /Webmail Upgrade Team/i
