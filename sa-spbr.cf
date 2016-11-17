@@ -1,4 +1,4 @@
-# sa-spbr.cf v.2016111600
+# sa-spbr.cf v.2016111700
 #
 # Lista de regras para o SpamAssassin iniciada por Victor Hugo Assunção para uso na realidade do e-mail
 # corporativo (ifpb.edu.br) e compartilhada na lista Zimbra-BR (zimbra-br@googlegroups.com).
@@ -70,10 +70,10 @@ score SPBR_LISTAS_REMOCAO       6
 header SPBR_HEADER_UNSUB    exists:List-Unsubscribe
 score SPBR_HEADER_UNSUB     1
 
-body __SPBR_EMPRESTIMO_0  /empréstimo/i
-body __SPBR_EMPRESTIMO_1  /consignado/i
-body __SPBR_EMPRESTIMO_2  /(spc|serasa)/i
-meta SPBR_EMPRESTIMO      (__SPBR_EMPRESTIMO_0 && __SPBR_EMPRESTIMO_1 && __SPBR_EMPRESTIMO_2)
+body __SPBR_EMPRESTIMO_0  /(empréstimo|cartão)/i
+body __SPBR_EMPRESTIMO_1  /(consignado|consignável)/i
+body __SPBR_EMPRESTIMO_2  /(spc|serasa|juros|anuidade)/i
+meta SPBR_EMPRESTIMO      (__SPBR_EMPRESTIMO_0 + __SPBR_EMPRESTIMO_1 + __SPBR_EMPRESTIMO_2) > 1
 score SPBR_EMPRESTIMO     5
 
 body __SPBR_OFERTAS_0     /ofertas?/i
