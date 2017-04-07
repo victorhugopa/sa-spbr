@@ -30,8 +30,8 @@ describe SPBR_OFERTAS         Pontua +4 para emails que contenham palavras relac
 
 body __SPBR_PHISHING1_0     /(atualizar?|manutenção|reparar?|validar?|validação|verificação|verificar?)/i
 body __SPBR_PHISHING1_1     /(caixa|correio|conta|e-?mail|webmail)/i
-body __SPBR_PHISHING1_2     /(123contactform.com|formcrafts.com|formlogix.com|formsite.com|mailjol.net|qualtrics.com|tripod.com|ucoz.net|webs.com|weebly.com|yolasite.com)/i
-rawbody __SPBR_PHISHING1_3  /(123contactform.com|formcrafts.com|formlogix.com|formsite.com|mailjol.net|qualtrics.com|tripod.com|ucoz.net|webs.com|weebly.com|yolasite.com)/i
+body __SPBR_PHISHING1_2     /(123contactform.com|formcrafts.com|formlogix.com|formsite.com|mailjol.net|qualtrics.com|seamlessdocs.com|tripod.com|ucoz.net|webs.com|weebly.com|yolasite.com)/i
+rawbody __SPBR_PHISHING1_3  /(123contactform.com|formcrafts.com|formlogix.com|formsite.com|mailjol.net|qualtrics.com|seamlessdocs.com|tripod.com|ucoz.net|webs.com|weebly.com|yolasite.com)/i
 meta SPBR_PHISHING1         (__SPBR_PHISHING1_0 + __SPBR_PHISHING1_1 + __SPBR_PHISHING1_2 + __SPBR_PHISHING1_3) > 2
 score SPBR_PHISHING1        10
 
